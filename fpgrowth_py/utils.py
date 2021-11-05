@@ -34,16 +34,30 @@ def getFromFile(fname):
 def constructTree(itemSetList, frequency, minSup):
     headerTable = defaultdict(int)
     # Counting frequency and create header table
+    # 先取出itemSetList所有item，然後去算每個item的個數存到headerTable
     for idx, itemSet in enumerate(itemSetList):
         for item in itemSet:
+            #eggs:0
+            #bacon:0
+            #soup:0
+            #eggs:1
+            #bacon:1
+            #apple:0
+            #soup:1
+            #bacon:2
+            #banana:0
+            #soup:2
+            #banana:1
             headerTable[item] += frequency[idx]
 
     # Deleting items below minSup
+    # 刪除headerTable裡的item小於最小支持度的
     headerTable = dict((item, sup) for item, sup in headerTable.items() if sup >= minSup)
     if(len(headerTable) == 0):
         return None, None
 
     # HeaderTable column [Item: [frequency, headNode]]
+    #
     for item in headerTable:
         headerTable[item] = [headerTable[item], None]
 

@@ -5,8 +5,14 @@ from optparse import OptionParser
 from fpgrowth_py.utils import *
 
 def fpgrowth(itemSetList, minSupRatio, minConf):
+    #得出共有多少交易
     frequency = getFrequencyFromList(itemSetList)
+
+    #計算最小支持度，用交易次數 * 最小支持率
+    #如果共有四筆交易，最小支持率為1，那其最小支持度為=4*1
     minSup = len(itemSetList) * minSupRatio
+
+    #建構fpTree跟headerTable
     fpTree, headerTable = constructTree(itemSetList, frequency, minSup)
     if(fpTree == None):
         print('No frequent item set')
